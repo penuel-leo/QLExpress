@@ -652,6 +652,8 @@ public class ExpressRunner {
         return executeReentrant(parseResult, context, errorList, isTrace, false);
     }
 
+
+
     private Object executeReentrant(InstructionSet sets, IExpressContext<String, Object> iExpressContext,
         List<String> errorList, boolean isTrace, boolean isCatchException) throws Exception {
         try {
@@ -818,5 +820,9 @@ public class ExpressRunner {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public ExpressLoader getLoader(){
+        return this.loader;
     }
 }

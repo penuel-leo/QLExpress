@@ -7,6 +7,8 @@ import com.ql.util.express.instruction.OperateDataCacheManager;
 
 public class InstructionSetRunner {
 
+    private static InstructionSetContext context;
+
     private InstructionSetRunner() {
         throw new IllegalStateException("Utility class");
     }
@@ -45,9 +47,13 @@ public class InstructionSetRunner {
         IExpressContext<String, Object> iExpressContext, List<String> errorList, boolean isTrace,
         boolean isCatchException, boolean isReturnLastData, boolean isSupportDynamicFieldName)
         throws Exception {
-        InstructionSetContext context = OperateDataCacheManager.fetchInstructionSetContext(true, runner,
+        context = OperateDataCacheManager.fetchInstructionSetContext(true, runner,
             iExpressContext, loader, isSupportDynamicFieldName);
         return execute(instructionSet, context, errorList, isTrace, isCatchException, isReturnLastData);
+    }
+
+    public static InstructionSetContext getInstructionSetContext(){
+        return context;
     }
 
     public static Object execute(InstructionSet set, InstructionSetContext context, List<String> errorList,

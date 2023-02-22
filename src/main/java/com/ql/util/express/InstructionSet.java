@@ -204,6 +204,10 @@ public class InstructionSet {
         return this.instructionList.length;
     }
 
+    public Instruction[] getInstructionList(){
+        return instructionList;
+    }
+
     public void addMacroDefine(String macroName, FunctionInstructionSet functionInstructionSet) {
         this.functionDefine.put(macroName, functionInstructionSet);
     }

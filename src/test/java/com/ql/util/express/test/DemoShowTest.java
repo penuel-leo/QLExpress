@@ -3,9 +3,16 @@ package com.ql.util.express.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ql.util.express.DefaultContext;
-import com.ql.util.express.ExpressRunner;
-import com.ql.util.express.Operator;
+import com.ql.util.express.*;
+import com.ql.util.express.condition.CompositeCondition;
+import com.ql.util.express.condition.ConditionUtils;
+import com.ql.util.express.condition.ICondition;
+import com.ql.util.express.condition.SingleCondition;
+import com.ql.util.express.instruction.OperateDataCacheManager;
+import com.ql.util.express.instruction.detail.Instruction;
+import com.ql.util.express.instruction.detail.InstructionConstData;
+import com.ql.util.express.instruction.detail.InstructionLoadAttr;
+import com.ql.util.express.instruction.detail.InstructionOperator;
 import org.junit.Test;
 
 public class DemoShowTest {
@@ -53,7 +60,7 @@ public class DemoShowTest {
     public void testHanoiMethod() throws Exception {
         ExpressRunner runner = new ExpressRunner(false, false);
         runner.addFunctionOfClassMethod("汉诺塔算法", DemoShowTest.class.getName(), "hanoi",
-            new Class[] {int.class, char.class, char.class, char.class}, null);
+                new Class[]{int.class, char.class, char.class, char.class}, null);
         runner.execute("汉诺塔算法(3, '1', '2', '3')", null, null, false, false);
     }
 
@@ -66,7 +73,7 @@ public class DemoShowTest {
     public void testHanoiMethod2() throws Exception {
         ExpressRunner runner = new ExpressRunner(false, false);
         runner.addFunctionOfServiceMethod("汉诺塔算法", new DemoShowTest(), "hanoi",
-            new Class[] {int.class, char.class, char.class, char.class}, null);
+                new Class[]{int.class, char.class, char.class, char.class}, null);
         runner.execute("汉诺塔算法(3, '1', '2', '3')", null, null, false, false);
     }
 
@@ -79,7 +86,7 @@ public class DemoShowTest {
     public void testHanoiMethod3() throws Exception {
         ExpressRunner runner = new ExpressRunner(false, true);
         runner.addFunctionOfServiceMethod("汉诺塔算法", new DemoShowTest(), "hanoi",
-            new Class[] {int.class, char.class, char.class, char.class}, null);
+                new Class[]{int.class, char.class, char.class, char.class}, null);
         runner.addMacro("汉诺塔算法演示", "汉诺塔算法(3, '1', '2', '3')");
         runner.execute("汉诺塔算法演示", null, null, false, false);
     }
@@ -120,7 +127,7 @@ public class DemoShowTest {
             Object opdata1 = list[0];
             Object opdata2 = list[1];
             if (opdata1 instanceof List) {
-                ((List)opdata1).add(opdata2);
+                ((List) opdata1).add(opdata2);
                 return opdata1;
             } else {
                 List result = new ArrayList();
@@ -156,15 +163,23 @@ public class DemoShowTest {
     public void testShortLogicAndErrorInfo() throws Exception {
         ExpressRunner runner = new ExpressRunner(false, false);
         DefaultContext<String, Object> context = new DefaultContext<>();
-        context.put("A类违规天数90天内", true);
-        context.put("虚假交易扣分", 11);
-        context.put("假冒扣分", 11);
-        context.put("待整改卖家", false);
-        context.put("宝贝相符DSR", 4.0);
-        String expression = "A类违规天数90天内 == false and (虚假交易扣分 < 48 or 假冒扣分 < 12) and 待整改卖家 == false and 宝贝相符DSR > 4.6";
+        context.put("a", false);
+        context.put("b", 11);
+        context.put("c", 16);
+        context.put("d", false);
+        context.put("e", 4.7);
+        context.put("f", false);
+        context.put("g", "abc");
+        String expression = "(f==false || a == false) && (b < 48 || c < 12 || d == false) && e > 4.6";
         expression = initial(runner, expression);
         List<String> errorInfo = new ArrayList<>();
-        boolean result = (Boolean)runner.execute(expression, context, errorInfo, true, false);
+        boolean result = (Boolean) runner.execute(expression, context, errorInfo, true, false);
+
+        InstructionSet instructionSet = runner.getInstructionSetFromLocalCache(expression);
+//        InstructionSetContext instructionSetContext = OperateDataCacheManager.fetchInstructionSetContext(true, runner,
+//                context, runner.getLoader(), false);
+        ICondition condition = ConditionUtils.parse(instructionSet, InstructionSetRunner.getInstructionSetContext());
+
         if (result) {
             System.out.println("符合营销活动规则");
         } else {
@@ -175,12 +190,14 @@ public class DemoShowTest {
         }
     }
 
+
     public String initial(ExpressRunner runner, String expression) throws Exception {
         runner.setShortCircuit(false);
-        runner.addOperatorWithAlias("小于", "<", "$1 < $2 不符合");
-        runner.addOperatorWithAlias("大于", ">", "$1 > $2 不符合");
-        runner.addOperatorWithAlias("等于", "==", "$1 == $2 不符合");
-        return expression.replaceAll("<", " 小于 ").replaceAll(">", " 大于 ").replaceAll("==", " 等于 ");
+//        runner.addOperatorWithAlias("小于", "<", "$1 < $2 不符合");
+//        runner.addOperatorWithAlias("大于", ">", "$1 > $2 不符合");
+//        runner.addOperatorWithAlias("等于", "==", "$1 == $2 不符合");
+//        return expression.replaceAll("<", " 小于 ").replaceAll(">", " 大于 ").replaceAll("==", " 等于 ");
+        return expression;
     }
 
     /**
