@@ -6,7 +6,7 @@
     <groupId>com.alibaba</groupId>
     <artifactId>QLExpress</artifactId>
     <packaging>jar</packaging>
-    <version>3.3.1</version>
+    <version>kktd-3.3.1</version>
     <name>QLExpress</name>
     <description>QLExpress is a powerful, lightweight, dynamic language for the Java platform aimed at improving developers’ productivity in different business scenes.
     </description>
@@ -92,36 +92,212 @@
     </dependencies>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>oss</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>releases</id>
+            <name>Local Nexus Repository</name>
+            <url>https://nexus.dipbit.xyz/repository/maven-releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>snapshot</id>
+            <name>Local Nexus Repository</name>
+            <url>https://nexus.dipbit.xyz/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven-public</id>
+            <url>https://nexus.dipbit.xyz/repository/maven-public/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>repo.maven.apache.org</id>
+            <url>https://nexus.dipbit.xyz/repository/repo.maven.apache.org</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <profiles>
         <profile>
-            <id>deploy</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>
-                    <!-- GPG plugin -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <project.profile.id>local</project.profile.id>
+            </properties>
+            <repositories>
+                <repository>
+                    <id>snapshot</id>
+                    <url>https://nexus.dipbit.xyz/repository/maven-snapshots/</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                </repository>
+
+                <repository>
+                    <id>public</id>
+                    <!--<url>https://nexus.dipbit.xyz/nexus/groups/public/</url>-->
+                    <url>https://nexus.dipbit.xyz/repository/maven-public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+
+                <repository>
+                    <id>releases</id>
+                    <url>https://nexus.dipbit.xyz/repository/maven-releases/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+
+                <repository>
+                    <id>thirdparty</id>
+                    <url>https://nexus.dipbit.xyz/repository/thirdparty</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+
+                <repository>
+                    <id>bintray.com</id>
+                    <!--<url>https://dl.bintray.com/spark-packages/maven/</url>-->
+                    <url>https://nexus.dipbit.xyz/repository/bintray.com/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>maven-public</id>
+                    <url>https://nexus.dipbit.xyz/repository/maven-public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>jahia.org</id>
+                    <!-- <url>http://maven.jahia.org/maven2</url>-->
+                    <url>https://nexus.dipbit.xyz/repository/jahia.org/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+
+                <repository>
+                    <id>clojars.org</id>
+                    <url>https://nexus.dipbit.xyz/repository/clojars.org/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <!--<url>http://clojars.org/repo/</url>-->
+                </repository>
+
+                <repository>
+                    <id>cloudera</id>
+                    <!--<url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>-->
+                    <url>https://nexus.dipbit.xyz/repository/cloudera/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+
+                <repository>
+                    <id>spring-jcenter-cache</id>
+                    <!--<url>http://repo.spring.io/jcenter-cache/</url>-->
+                    <url>https://nexus.dipbit.xyz/repository/spring-jcenter-cache</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+
+                <repository>
+                    <id>repo.maven.apache.org</id>
+                    <!--<url>https://dl.bintray.com/spark-packages/maven/</url>-->
+                    <url>https://nexus.dipbit.xyz/repository/repo.maven.apache.org</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>spark-thirdpart</id>
+                    <!--<url>https://dl.bintray.com/spark-packages/maven/</url>-->
+                    <url>https://nexus.dipbit.xyz/repository/spark-thirdpart</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>jitpack.io</id>
+                    <url>https://jitpack.io</url>
+                </repository>
+                <repository>
+                    <id>sonatype-nexus-staging</id>
+                    <name>Sonatype Nexus Staging</name>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <distributionManagement>
+                <repository>
+                    <id>releases</id>
+                    <name>Local Nexus Repository</name>
+                    <url>https://nexus.dipbit.xyz/repository/maven-releases/</url>
+                </repository>
+                <snapshotRepository>
+                    <id>snapshot</id>
+                    <name>Local Nexus Repository</name>
+                    <url>https://nexus.dipbit.xyz/repository/maven-snapshots/</url>
+                </snapshotRepository>
+            </distributionManagement>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>maven-public</id>
+                    <url>https://nexus.dipbit.xyz/repository/maven-public/</url>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>repo.maven.apache.org</id>
+                    <url>https://nexus.dipbit.xyz/repository/repo.maven.apache.org</url>
+                </pluginRepository>
+            </pluginRepositories>
         </profile>
     </profiles>
 
@@ -167,37 +343,37 @@
                         </execution>
                     </executions>
                 </plugin>
-                <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>1.6.7</version>
-                    <extensions>true</extensions>
-                    <configuration>
-                        <serverId>ossrh</serverId>
-                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                    </configuration>
-                </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>org.sonatype.plugins</groupId>-->
+<!--                    <artifactId>nexus-staging-maven-plugin</artifactId>-->
+<!--                    <version>1.6.7</version>-->
+<!--                    <extensions>true</extensions>-->
+<!--                    <configuration>-->
+<!--                        <serverId>ossrh</serverId>-->
+<!--                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
+<!--                        <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
                 <!-- GPG -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.6</version>
-                    <executions>
-                        <execution>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>sign</goal>
-                            </goals>
-                            <configuration>
-                                <gpgArguments>
-                                    <arg>--pinentry-mode</arg>
-                                    <arg>loopback</arg>
-                                </gpgArguments>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-gpg-plugin</artifactId>-->
+<!--                    <version>1.6</version>-->
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <phase>verify</phase>-->
+<!--                            <goals>-->
+<!--                                <goal>sign</goal>-->
+<!--                            </goals>-->
+<!--                            <configuration>-->
+<!--                                <gpgArguments>-->
+<!--                                    <arg>&#45;&#45;pinentry-mode</arg>-->
+<!--                                    <arg>loopback</arg>-->
+<!--                                </gpgArguments>-->
+<!--                            </configuration>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                </plugin>-->
             </plugins>
         </pluginManagement>
         <plugins>
