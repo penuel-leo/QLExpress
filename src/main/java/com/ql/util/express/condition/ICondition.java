@@ -22,6 +22,8 @@ public interface ICondition {
     }
 
     enum Operator{
+
+        IGNORE(),
         EQUAL("==","<>"),
         NOT_EQUAL("!="),
         GREATER_THAN(">"),
@@ -51,7 +53,7 @@ public interface ICondition {
                     return operator;
                 }
             }
-            throw new UnsupportedOperationException("UnSupport operator 【"+name+"】");
+            return IGNORE;
         }
     }
 

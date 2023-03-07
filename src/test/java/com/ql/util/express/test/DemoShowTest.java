@@ -171,6 +171,7 @@ public class DemoShowTest {
         context.put("f", false);
         context.put("g", "abc");
         String expression = "(f==false || a == false) && (b < 48 || c < 12 || d == false) && e > 4.6";
+
         expression = initial(runner, expression);
         List<String> errorInfo = new ArrayList<>();
         boolean result = (Boolean) runner.execute(expression, context, errorInfo, true, false);

@@ -95,22 +95,22 @@
         <repository>
             <id>releases</id>
             <name>Local Nexus Repository</name>
-            <url>https://nexus.dipbit.xyz/repository/maven-releases/</url>
+            <url>https://nexusdev.trex.xyz/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>snapshot</id>
             <name>Local Nexus Repository</name>
-            <url>https://nexus.dipbit.xyz/repository/maven-snapshots/</url>
+            <url>https://nexusdev.trex.xyz/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
     <pluginRepositories>
         <pluginRepository>
             <id>maven-public</id>
-            <url>https://nexus.dipbit.xyz/repository/maven-public/</url>
+            <url>https://nexusdev.trex.xyz/repository/maven-public/</url>
         </pluginRepository>
         <pluginRepository>
             <id>repo.maven.apache.org</id>
-            <url>https://nexus.dipbit.xyz/repository/repo.maven.apache.org</url>
+            <url>https://nexusdev.trex.xyz/repository/repo.maven.apache.org</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -280,22 +280,30 @@
                 <repository>
                     <id>releases</id>
                     <name>Local Nexus Repository</name>
-                    <url>https://nexus.dipbit.xyz/repository/maven-releases/</url>
+<!--                    <url>https://nexus.dipbit.xyz/repository/maven-releases/</url>-->
+                    <url>http://nexusbeta.trex.xyz:28080/repository/maven-releases/</url>
+<!--                    <url>https://nexusdev.trex.xyz/repository/maven-releases/</url>-->
                 </repository>
                 <snapshotRepository>
                     <id>snapshot</id>
                     <name>Local Nexus Repository</name>
-                    <url>https://nexus.dipbit.xyz/repository/maven-snapshots/</url>
+<!--                    <url>https://nexus.dipbit.xyz/repository/maven-snapshots/</url>-->
+                    <url>http//nexusbeta.trex.xyz:28080/repository/maven-snapshots/</url>
+<!--                    <url>https://nexusdev.trex.xyz/repository/maven-snapshots/</url>-->
                 </snapshotRepository>
             </distributionManagement>
             <pluginRepositories>
                 <pluginRepository>
                     <id>maven-public</id>
-                    <url>https://nexus.dipbit.xyz/repository/maven-public/</url>
+<!--                    <url>https://nexus.dipbit.xyz/repository/maven-public/</url>-->
+                    <url>http://nexusbeta.trex.xyz:28080/repository/maven-public/</url>
+<!--                    <url>https://nexusdev.trex.xyz/repository/maven-public/</url>-->
                 </pluginRepository>
                 <pluginRepository>
                     <id>repo.maven.apache.org</id>
-                    <url>https://nexus.dipbit.xyz/repository/repo.maven.apache.org</url>
+<!--                    <url>https://nexus.dipbit.xyz/repository/repo.maven.apache.org</url>-->
+                    <url>http://nexusbeta.trex.xyz:28080/repository/repo.maven.apache.org</url>
+<!--                    <url>https://nexusdev.trex.xyz/repository/repo.maven.apache.org</url>-->
                 </pluginRepository>
             </pluginRepositories>
         </profile>
